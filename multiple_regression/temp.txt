@@ -1,0 +1,110 @@
+def model_year():    
+    lists = sorted(data.items())
+    lists = sample(lists,len(data))
+    x, y = zip(*lists)
+
+    plt.figure(dpi=500)
+
+    plt.ylabel('accuracy')
+    plt.xlabel('season')
+
+    plt.ylim(min(y)-2, max(y)+2)
+    plt.xlim(1910, 2025)
+
+    mymodel = np.poly1d(np.polyfit(x, y, 3))
+    myline = np.linspace(1913, 2021, 100)
+
+    for i in range(len(x)):
+        plt.annotate(x[i],(x[i],y[i]), size=4, textcoords='offset points', xytext=(0,5), ha='center')
+
+    plt.scatter(x,y)
+    plt.plot(myline, mymodel(myline))
+
+    #center of years
+    # (2021 + 1913) / 2 = 1967
+    plt.plot([1967,1967],[0,100], color='red', linestyle='dotted')
+
+    #horizontal_center
+    horizontal_center = (min(y) + max(y)) / 2
+    plt.plot([1900,2100],[horizontal_center,horizontal_center], color='green', linestyle='dotted')
+    plt.show
+
+    print(len(x))
+    print(len(count_year))
+
+    plt.figure(dpi=500)
+    plt.scatter(x, count_year)
+    plt.show
+
+    print(r2_score(y, mymodel(x)))
+model_year()
+
+def model_year_all():    
+    lists = sorted(data_all.items())
+    lists = sample(lists,len(data_all))
+    x, y = zip(*lists)
+
+    plt.figure(dpi=500)
+
+    plt.ylabel('accuracy')
+    plt.xlabel('season')
+
+    plt.ylim(min(y)-2, max(y)+2)
+    plt.xlim(1910, 2025)
+
+    mymodel = np.poly1d(np.polyfit(x, y, 3))
+    myline = np.linspace(1913, 2021, 100)
+
+    for i in range(len(x)):
+        plt.annotate(x[i],(x[i],y[i]), size=4, textcoords='offset points', xytext=(0,5), ha='center')
+
+    plt.scatter(x,y)
+    plt.plot(myline, mymodel(myline))
+
+    #center of years
+    # (2021 + 1913) / 2 = 1967
+    plt.plot([1967,1967],[0,100], color='red', linestyle='dotted')
+
+    #horizontal_center
+    horizontal_center = (min(y) + max(y)) / 2
+    plt.plot([1900,2100],[horizontal_center,horizontal_center], color='green', linestyle='dotted')
+
+
+
+
+    plt.show
+
+    plt.figure(dpi=500)
+    plt.scatter(x, count_all_year)
+
+    print(r2_score(y, mymodel(x)))
+model_year_all()
+
+lists = sorted(data.items())
+lists = sample(lists,len(data))
+x, y = zip(*lists)
+
+accuracy_center = (min(y) + max(y)) / 2
+years_center = (2021 + 1913) / 2
+
+q1_count = 0
+q2_count = 0
+q3_count = 0
+q4_count =0
+
+for i in range(len(x)):
+    if x[i] <= years_center and y[i] <= accuracy_center:
+        q3_count += 1
+    elif x[i] > years_center and y[i] > accuracy_center:
+        q1_count += 1
+    elif x[i] <= years_center and y[i] > accuracy_center:
+        q2_count += 1
+    elif x[i] > years_center and y[i] <= accuracy_center:
+        q4_count += 1
+
+
+print(str(q1_count) + ' Q1 count')
+print(str(q2_count) + ' Q2 count')
+print(str(q3_count) + ' Q3 count')
+print(str(q4_count) + ' Q4 count')
+

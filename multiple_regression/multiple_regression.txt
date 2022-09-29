@@ -1,0 +1,144 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Multiple Regression\n",
+    "Source https://www.w3schools.com/python/python_ml_multiple_regression.asp"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 29,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "from sklearn import linear_model\n",
+    "from sklearn import metrics\n",
+    "import matplotlib.pyplot as plt\n",
+    "import math\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_normalized = pd.read_csv('csv_files/mlb_normalized.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "normalized_train_x = df_normalized[df_normalized.columns[1:13]]\n",
+    "normalized_train_y_score_1 = df_normalized[df_normalized.columns[14:15]]\n",
+    "normalized_train_y_score_2 = df_normalized[df_normalized.columns[15:16]]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "/home/dmarino8/.local/lib/python3.10/site-packages/sklearn/base.py:450: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names\n",
+      "  warnings.warn(\n",
+      "/home/dmarino8/.local/lib/python3.10/site-packages/sklearn/base.py:450: UserWarning: X does not have valid feature names, but LinearRegression was fitted with feature names\n",
+      "  warnings.warn(\n"
+     ]
+    }
+   ],
+   "source": [
+    "data = [[1.0487048259621854,1.2928027735869834,-0.16101916825037235,0.16101917190758513,1.1332277629950591,0.9496631958150596,-0.5450728565315714,1.0116500002853488,-2.887271652849827,0.26969533386514055,-0.3965302399482321,0.39653024398502285]]\n",
+    "score_1 = 2\n",
+    "score_2 = 4\n",
+    "\n",
+    "predicted_score_1 = 0\n",
+    "predicted_score_2 = 0\n",
+    "\n",
+    "regr_score_1 = linear_model.LinearRegression()\n",
+    "regr_score_1.fit(normalized_train_x, normalized_train_y_score_1)\n",
+    "predicted_score_1 = regr_score_1.predict(data)\n",
+    "\n",
+    "regr_score_2 = linear_model.LinearRegression()\n",
+    "regr_score_2.fit(normalized_train_x, normalized_train_y_score_2)\n",
+    "predicted_score_2 = regr_score_2.predict(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[-1923.33135038]]\n",
+      "[[2939.85509748]]\n",
+      "2\n",
+      "4\n",
+      "CORRECT\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(predicted_score_1)\n",
+    "print(predicted_score_2)\n",
+    "predicted_winner = 0\n",
+    "if abs(predicted_score_1) < abs(predicted_score_2):\n",
+    "    predicted_winner = 1\n",
+    "else:\n",
+    "    predicted_winner = 0\n",
+    "print(score_1)\n",
+    "print(score_2)\n",
+    "winner = 0\n",
+    "if score_1 < score_2:\n",
+    "    winner = 1\n",
+    "else:\n",
+    "    winner = 0\n",
+    "\n",
+    "if predicted_winner == winner:\n",
+    "    print('CORRECT')\n",
+    "else:\n",
+    "    print('INCORRECT')"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3.10.7 64-bit",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.7"
+  },
+  "orig_nbformat": 4,
+  "vscode": {
+   "interpreter": {
+    "hash": "e7370f93d1d0cde622a1f8e1c04877d8463912d04d973331ad4851f04de6915a"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
